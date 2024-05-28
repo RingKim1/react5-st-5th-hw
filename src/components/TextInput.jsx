@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { onAddText } from "../redux/slices/textsSlice";
 
 function TextInput() {
   const [inputValue, setInputValue] = useState("");
