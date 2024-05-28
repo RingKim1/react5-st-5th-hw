@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 function TextInput() {
   const [inputValue, setInputValue] = useState("");
   const texts = useSelector((state) => state.texts);
-  console.log(texts);
 
   const dispatch = useDispatch();
 
