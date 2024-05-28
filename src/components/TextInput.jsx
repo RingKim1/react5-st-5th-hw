@@ -1,26 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../contexts/ContextProvider";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function TextInput() {
   const [inputValue, setInputValue] = useState("");
-  const { texts, setTexts } = useContext(Context);
+  const texts = useSelector((state) => state.texts);
+  console.log(texts);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.setItem("texts", JSON.stringify(texts));
   }, [texts]);
 
-  const onAddText = (text) => {
-    setTexts((prevTexts) => [...prevTexts, text]);
-  };
-
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      onAddText(inputValue);
+      dispatch(onAddText(inputValue));
       setInputValue("");
     }
   };
@@ -30,7 +25,9 @@ function TextInput() {
       <input
         type="text"
         value={inputValue}
-        onChange={handleChange}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+        }}
         placeholder="Enter text"
       />
       <button type="submit">Add</button>
