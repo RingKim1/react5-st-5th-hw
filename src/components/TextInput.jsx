@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../contexts/ContextProvider";
 
-function TextInput({ onAddText }) {
+function TextInput() {
   const [inputValue, setInputValue] = useState("");
+  const { texts, setTexts } = useContext(Context);
+
+  useEffect(() => {
+    localStorage.setItem("texts", JSON.stringify(texts));
+  }, [texts]);
+
+  const onAddText = (text) => {
+    setTexts((prevTexts) => [...prevTexts, text]);
+  };
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
